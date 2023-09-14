@@ -26,6 +26,8 @@ function test()
         $list[] = $row;
     }
 
+    mysqli_close($connection);
+
     return $list;
 }
 
