@@ -1,0 +1,56 @@
+<style>
+  body {
+    background-color: rgb(25, 25, 71);
+    transition: background-color 1s;
+  }
+  body.nuked {
+    background-color: rgb(255, 212, 94);
+    transition: background-color 0.1s;
+  }
+  button {
+    width: 200px;
+    height: 200px;
+    background-color: rgb(255, 39, 39);
+    border-radius: 50%;
+    border: none;
+    box-shadow: 15px 15px rgb(17, 3, 36);
+    font-size: 150px;
+    margin-top: 100px;
+    transition: box-shadow 0.4s, transform 0.4s;
+    transform: translate(-15px, -15px);
+  }
+  button:active {
+    box-shadow: 0 0 rgb(17, 3, 36);
+    transform: translate(0, 0);
+    transition: box-shadow 0.1s, transform 0.1s;
+  }
+  p {
+    font-size: 20px;
+    color: white;
+    font-family: sans-serif;
+    padding: 50px 50px 0;
+  }
+</style>
+
+<center>
+  <button>!</button>
+</center>
+<p></p>
+
+<script>
+  document.querySelector("button").addEventListener("click", async (event) => {
+    document.body.classList.add("nuked");
+    setTimeout(() => document.body.classList.remove("nuked"), 500);
+
+    let response = await fetch("register/register.php", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        email: "a@b.c",
+      }),
+    }).then((response) => response.json());
+
+    console.log(response);
+    document.querySelector("p").innerHTML += JSON.stringify(response) + "<br />";
+  });
+</script>
