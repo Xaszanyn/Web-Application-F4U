@@ -6,7 +6,7 @@ require "../utilities/database.php";
 $email = post()["email"];
 
 if (filter_var($email, FILTER_VALIDATE_EMAIL)) {
-    if (email_check($email)) {
+    if (register_email_check($email)) {
         echo json_encode(["status" => "success"]);
     } else {
         echo json_encode(["status" => "email_used"]);

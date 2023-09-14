@@ -2,6 +2,6 @@
 
 require "./utilities/database.php";
 
-echo email_check("asdasd.js@gmail.com");
+register_code_check(12345);
 
 ?>
