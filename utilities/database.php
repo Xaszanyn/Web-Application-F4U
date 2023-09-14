@@ -28,7 +28,9 @@ function email_check($email)
 
     $result = mysqli_prepare($connection, $query);
 
-    mysqli_stmt_bind_param($result, "si", $email, time());
+    $time = time();
+
+    mysqli_stmt_bind_param($result, "si", $email, $time);
     mysqli_stmt_execute($result);
     mysqli_stmt_close($result);
 
