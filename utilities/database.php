@@ -45,7 +45,7 @@ function register_code_check($code)
 {
     $connection = connect();
 
-    $query = "SELECT email FROM registries WHERE code = ?)";
+    $query = "SELECT email FROM registries WHERE code = ?";
     $result = mysqli_prepare($connection, $query);
     mysqli_stmt_bind_param($result, "i", $code);
     mysqli_stmt_execute($result);
