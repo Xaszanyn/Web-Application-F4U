@@ -1,8 +1,8 @@
 <?php
 
-define("DATABASE_HOST", "F4U_Test");
+define("DATABASE_HOST", "localhost");
 define("DATABASE_USERNAME", "Ekin");
 define("DATABASE_PASSWORD", "Rg%pqnmF&aUl");
-define("DATABASE", "f4u_test");
+define("DATABASE", "F4U_Test");
 
 ?>
