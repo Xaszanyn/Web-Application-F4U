@@ -2,9 +2,8 @@
 
 require "configuration.php";
 
-function test()
+function email_check($email)
 {
-
     $connection = mysqli_connect(DATABASE_HOST, DATABASE_USERNAME, DATABASE_PASSWORD, DATABASE);
 
     mysqli_set_charset($connection, "UTF8");
@@ -12,25 +11,21 @@ function test()
     if (mysqli_connect_errno() > 0)
         return "Hata";
 
-
-
-
     $query = "SELECT * FROM users";
-
 
     $result = mysqli_query($connection, $query);
 
-    $list = [];
-
     while ($row = mysqli_fetch_row($result)) {
-        $list[] = $row;
+        if ($email == $row[1]) {
+            mysqli_close($connection);
+            return false;
+        }
+
     }
 
     mysqli_close($connection);
-
-    return $list;
+    return true;
 }
-
 
 
 ?>
