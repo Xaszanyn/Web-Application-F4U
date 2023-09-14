@@ -2,7 +2,7 @@
 
 require "configuration.php";
 
-function email_check($email)
+function connect()
 {
     $connection = mysqli_connect(DATABASE_HOST, DATABASE_USERNAME, DATABASE_PASSWORD, DATABASE);
 
@@ -11,32 +11,63 @@ function email_check($email)
     if (mysqli_connect_errno() > 0)
         return "Hata";
 
-    $query = "SELECT * FROM users";
+    return $connection;
+}
 
-    $result = mysqli_query($connection, $query);
+function email_check($email)
+{
+    $connection = connect();
 
-    while ($row = mysqli_fetch_row($result)) {
-        if ($email == $row[1]) {
-            mysqli_close($connection);
-            return false;
-        }
-
-    }
-
-
-    $query = "INSERT INTO registries(email, time) VALUES (?, ?)";
-
+    $query = "SELECT EXISTS(SELECT * FROM users WHERE email = ?)";
     $result = mysqli_prepare($connection, $query);
-
-    $time = time();
-
-    mysqli_stmt_bind_param($result, "si", $email, $time);
+    mysqli_stmt_bind_param($result, "s", $email);
     mysqli_stmt_execute($result);
+    mysqli_stmt_bind_result($result, $exists);
+    mysqli_stmt_fetch($result);
     mysqli_stmt_close($result);
 
-    mysqli_close($connection);
+    return $exists;
 
-    return true;
+
+
+
+
+
+
+
+
+
+
+    // $query = "SELECT * FROM users";
+
+    // $result = mysqli_query($connection, $query);
+
+    // while ($row = mysqli_fetch_row($result)) {
+    //     if ($email == $row[1]) {
+    //         mysqli_close($connection);
+    //         return false;
+    //     }
+
+    // }
+
+
+    // $query = "INSERT INTO registries(email, time) VALUES (?, ?)";
+
+    // $result = mysqli_prepare($connection, $query);
+
+    // $time = time();
+
+    // mysqli_stmt_bind_param($result, "si", $email, $time);
+    // mysqli_stmt_execute($result);
+    // mysqli_stmt_close($result);
+
+    // mysqli_close($connection);
+
+
+
+
+
+
 }
 
 
