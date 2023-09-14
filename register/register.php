@@ -3,10 +3,10 @@
 require "../utilities/post.php";
 require "../utilities/database.php";
 
-$mail = post()["email"];
+$email = post()["email"];
 
-if (filter_var($mail, FILTER_VALIDATE_EMAIL)) {
-    if (email_check($mail)) {
+if (filter_var($email, FILTER_VALIDATE_EMAIL)) {
+    if (email_check($email)) {
         echo json_encode(["status" => "success"]);
     } else {
         echo json_encode(["status" => "email_used"]);

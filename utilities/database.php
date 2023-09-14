@@ -38,9 +38,7 @@ function email_check($email)
 
     mysqli_close($connection);
 
-    return $exists;
+    return !$exists;
 }
-
-
 
 ?>
