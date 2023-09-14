@@ -53,24 +53,18 @@ function register_code_check($code)
     mysqli_stmt_fetch($result);
     mysqli_stmt_close($result);
 
-    return $email;
+    if ($email) {
+        $query = "INSERT INTO users(email, name, address, phone, picture, salt, hash) VALUES (?, ?, ?, ?, ?, ?, ?)";
+        $result = mysqli_prepare($connection, $query);
+        $time = time();
+        $blank = "-";
+        mysqli_stmt_bind_param($result, "sssssss", $email, $blank, $blank, $blank, $blank, $code, $time);
+        mysqli_stmt_execute($result);
+        mysqli_stmt_close($result);
 
-
-
-
-    // if (!$exists) {
-    //     $query = "INSERT INTO registries(email, code, time) VALUES (?, ?, ?)";
-    //     $result = mysqli_prepare($connection, $query);
-    //     $time = time();
-    //     $code = mt_rand(10000, 99999);
-    //     mysqli_stmt_bind_param($result, "sii", $email, $code, $time);
-    //     mysqli_stmt_execute($result);
-    //     mysqli_stmt_close($result);
-    // }
-
-    // mysqli_close($connection);
-
-    // return !$exists;
+        return $code;
+    } else
+        return false;
 }
 
 ?>
