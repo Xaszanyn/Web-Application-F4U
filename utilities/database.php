@@ -9,7 +9,7 @@ function connect()
     mysqli_set_charset($connection, "UTF8");
 
     if (mysqli_connect_errno() > 0)
-        return "Hata";
+        die("Hata");
 
     return $connection;
 }
