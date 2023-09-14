@@ -5,7 +5,7 @@ require "../utilities/database.php";
 
 $mail = post()["email"];
 
-if (filter_var("some@address.com", FILTER_VALIDATE_EMAIL)) {
+if (filter_var($mail, FILTER_VALIDATE_EMAIL)) {
     if (email_check($mail)) {
         echo json_encode(["status" => "success"]);
     } else {
