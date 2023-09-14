@@ -26,48 +26,19 @@ function email_check($email)
     mysqli_stmt_fetch($result);
     mysqli_stmt_close($result);
 
+    if (!$exists) {
+        $query = "INSERT INTO registries(email, code, time) VALUES (?, ?, ?)";
+        $result = mysqli_prepare($connection, $query);
+        $time = time();
+        $code = mt_rand(10000, 99999);
+        mysqli_stmt_bind_param($result, "sii", $email, $code, $time);
+        mysqli_stmt_execute($result);
+        mysqli_stmt_close($result);
+    }
+
+    mysqli_close($connection);
+
     return $exists;
-
-
-
-
-
-
-
-
-
-
-
-    // $query = "SELECT * FROM users";
-
-    // $result = mysqli_query($connection, $query);
-
-    // while ($row = mysqli_fetch_row($result)) {
-    //     if ($email == $row[1]) {
-    //         mysqli_close($connection);
-    //         return false;
-    //     }
-
-    // }
-
-
-    // $query = "INSERT INTO registries(email, time) VALUES (?, ?)";
-
-    // $result = mysqli_prepare($connection, $query);
-
-    // $time = time();
-
-    // mysqli_stmt_bind_param($result, "si", $email, $time);
-    // mysqli_stmt_execute($result);
-    // mysqli_stmt_close($result);
-
-    // mysqli_close($connection);
-
-
-
-
-
-
 }
 
 
