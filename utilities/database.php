@@ -57,6 +57,7 @@ function register_code_check($code)
 
 
 
+
     // if (!$exists) {
     //     $query = "INSERT INTO registries(email, code, time) VALUES (?, ?, ?)";
     //     $result = mysqli_prepare($connection, $query);

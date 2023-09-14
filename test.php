@@ -2,6 +2,14 @@
 
 require "./utilities/database.php";
 
-register_code_check(12345);
+$m = register_code_check(12345);
+
+
+
+if ($m)
+    echo $m;
+else
+    echo "can't found '_'";
+
 
 ?>
