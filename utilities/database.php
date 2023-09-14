@@ -23,7 +23,6 @@ function email_check($email)
 
     }
 
-    mysqli_close($connection);
 
     $query = "INSERT INTO registries(email, time) VALUES (?, ?)";
 
@@ -32,6 +31,8 @@ function email_check($email)
     mysqli_stmt_bind_param($result, "si", $email, time());
     mysqli_stmt_execute($result);
     mysqli_stmt_close($result);
+
+    mysqli_close($connection);
 
     return true;
 }
