@@ -1,11 +1,13 @@
 <?php
 
 require "../utilities/post.php";
+require "../utilities/database.php";
 
 $mail = post()["email"];
 
 
 
-echo json_encode(["v" => filter_var($mail, FILTER_VALIDATE_EMAIL)]);
+
+echo json_encode(test());
 
 ?>
