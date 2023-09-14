@@ -2,6 +2,6 @@
 
 require "./utilities/database.php";
 
-echo email_check("ekinaslan.js@gmail.com");
+echo email_check("asdasd.js@gmail.com");
 
 ?>
