@@ -70,6 +70,7 @@ function create($code, $name, $phone, $address, $password)
         return json_encode(["status" => "code_invalid"]);
 
     register_user($name, $phone, $address, $password);
+    return json_encode(["status" => "success"]);
 }
 
 ?>
