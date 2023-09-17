@@ -15,7 +15,7 @@ switch ($registry["phase"]) {
         echo confirm($registry["code"]);
         break;
     case "create":
-        echo create($registry["code"], $registry["name"], $registry["address"], $registry["phone"], $registry["password"]);
+        echo create($registry["code"], $registry["name"], $registry["phone"], $registry["address"], $registry["password"]);
         break;
 }
 
@@ -34,7 +34,7 @@ function register($email)
     $_SESSION["email"] = $email;
     $_SESSION["code"] = mt_rand(10000, 99999);
     $_SESSION["attempt"] = 3;
-    return json_encode(["status" => "success", "NOTFROMHERE" => $_SESSION["code"]]);
+    return json_encode(["status" => "success", "DELETE" => $_SESSION["code"]]);
 }
 
 function confirm($code)
@@ -56,7 +56,7 @@ function confirm($code)
     return json_encode(["status" => "success", "code" => $_SESSION["code"]]);
 }
 
-function create($code, $name, $address, $phone, $password)
+function create($code, $name, $phone, $address, $password)
 {
     if (!isset($_SESSION["phase"]) || $_SESSION["phase"] != "confirm")
         return json_encode(["status" => "timeout"]);
@@ -68,13 +68,8 @@ function create($code, $name, $address, $phone, $password)
 
     if ($code != $_SESSION["code"])
         return json_encode(["status" => "code_invalid"]);
+
+    register_user($name, $phone, $address, $password);
 }
-
-
-
-
-
-
-
 
 ?>
