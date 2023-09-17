@@ -5,8 +5,18 @@ require "../utilities/database.php";
 
 $email = post()["email"];
 
+
+
+
+
+
 if (filter_var($email, FILTER_VALIDATE_EMAIL)) {
     if (register_email_check($email)) {
+
+        session_start();
+
+        $_SESSION["email"] = $email;
+
         echo json_encode(["status" => "success"]);
     } else {
         echo json_encode(["status" => "email_used"]);
