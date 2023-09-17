@@ -42,7 +42,7 @@ function confirm($code)
     if (!isset($_SESSION["phase"]) || $_SESSION["phase"] != "register")
         return json_encode(["status" => "timeout"]);
 
-    if (--$_SESSION["attempt"] == 0) {
+    if (--$_SESSION["attempt"] < 0) {
         session_destroy();
         return json_encode(["status" => "maximum_attempt"]);
     }
