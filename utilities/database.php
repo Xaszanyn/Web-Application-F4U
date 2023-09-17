@@ -40,7 +40,7 @@ function register_user($name, $phone, $address, $password)
     $picture = "-";
     $salt = bin2hex(random_bytes(16));
     $hash = md5($password . $salt);
-    mysqli_stmt_bind_param($result, "sssssss", $_SESSION["email"], $phone, $address, $picture, $salt, $hash);
+    mysqli_stmt_bind_param($result, "sssssss", $_SESSION["email"], $name, $phone, $address, $picture, $salt, $hash);
     mysqli_stmt_execute($result);
     mysqli_stmt_close($result);
 
