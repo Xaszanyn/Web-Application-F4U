@@ -45,20 +45,25 @@ function register_code_check($code)
 {
     $connection = connect();
 
-    $query = "SELECT email FROM registries WHERE code = ?";
+    $query = "SELECT email, code FROM registries WHERE code = ?";
     $result = mysqli_prepare($connection, $query);
     mysqli_stmt_bind_param($result, "i", $code);
     mysqli_stmt_execute($result);
-    mysqli_stmt_bind_result($result, $email);
+    mysqli_stmt_bind_result($result, $email, $code);
     mysqli_stmt_fetch($result);
     mysqli_stmt_close($result);
 
+    $query = "DELETE FROM registries WHERE code = ?";
+    $result = mysqli_prepare($connection, $query);
+    mysqli_stmt_bind_param($result, "i", $code);
+    mysqli_stmt_execute($result);
+    mysqli_stmt_close($result);
+
     if ($email) {
-        $query = "INSERT INTO users(email, name, address, phone, picture, salt, hash) VALUES (?, ?, ?, ?, ?, ?, ?)";
+        $query = "INSERT INTO registry_controls(email, code, time) VALUES (?, ?, ?)";
         $result = mysqli_prepare($connection, $query);
         $time = time();
-        $blank = "-";
-        mysqli_stmt_bind_param($result, "sssssss", $email, $blank, $blank, $blank, $blank, $code, $time);
+        mysqli_stmt_bind_param($result, "sii", $email, $code, $time);
         mysqli_stmt_execute($result);
         mysqli_stmt_close($result);
 
