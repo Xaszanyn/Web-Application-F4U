@@ -51,7 +51,7 @@ function login_user($email, $password)
 {
     $connection = connect();
 
-    $query = "SELECT * FROM users WHERE email = ? AND MD5(CONCAT(?, salt))";
+    $query = "SELECT * FROM users WHERE email = ? AND hash = MD5(CONCAT(?, salt))";
     $result = mysqli_prepare($connection, $query);
     mysqli_stmt_bind_param($result, "ss", $email, $password);
     mysqli_stmt_execute($result);
