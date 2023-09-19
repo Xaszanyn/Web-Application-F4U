@@ -47,4 +47,21 @@ function register_user($name, $phone, $address, $password)
     mysqli_close($connection);
 }
 
+function login_user($email, $password)
+{
+    $connection = connect();
+
+    $query = "SELECT * FROM users WHERE email = ? AND MD5(CONCAT(?, salt))";
+    $result = mysqli_prepare($connection, $query);
+    mysqli_stmt_bind_param($result, "ss", $email, $password);
+    mysqli_stmt_execute($result);
+    mysqli_stmt_bind_result($result, $user);
+    mysqli_stmt_fetch($result);
+    mysqli_stmt_close($result);
+
+    mysqli_close($connection);
+
+    return $user;
+}
+
 ?>
