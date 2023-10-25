@@ -71,8 +71,11 @@ function get_menus()
     $query = "SELECT name, picture, description, content FROM menus";
     $result = mysqli_prepare($connection, $query);
     mysqli_stmt_execute($result);
-    mysqli_stmt_bind_result($result, $menus["name"], $menus["picture"], $menus["description"], $menus["content"]);
-    mysqli_stmt_fetch($result);
+    mysqli_stmt_bind_result($result, $menu["name"], $menu["picture"], $menu["description"], $menu["content"]);
+
+    while (mysqli_stmt_fetch($result))
+        $menus[] = $menu;
+
     mysqli_stmt_close($result);
 
     mysqli_close($connection);
