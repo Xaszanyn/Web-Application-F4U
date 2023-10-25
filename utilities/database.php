@@ -64,4 +64,20 @@ function login_user($email, $password)
     return $id;
 }
 
+function get_menus()
+{
+    $connection = connect();
+
+    $query = "SELECT * FROM menus";
+    $result = mysqli_prepare($connection, $query);
+    mysqli_stmt_execute($result);
+    mysqli_stmt_bind_result($result, $menus);
+    mysqli_stmt_fetch($result);
+    mysqli_stmt_close($result);
+
+    mysqli_close($connection);
+
+    return $menus;
+}
+
 ?>
