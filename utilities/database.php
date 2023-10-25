@@ -73,8 +73,10 @@ function get_menus()
     mysqli_stmt_execute($result);
     mysqli_stmt_bind_result($result, $menu["name"], $menu["picture"], $menu["description"], $menu["content"]);
 
-    while (mysqli_stmt_fetch($result))
+    while (mysqli_stmt_fetch($result)) {
         $menus[] = $menu;
+        $menu = [];
+    }
 
     mysqli_stmt_close($result);
 
