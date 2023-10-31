@@ -89,4 +89,29 @@ function get_menus()
     return $menus;
 }
 
+function get_contents()
+{
+    $connection = connect();
+
+    $query = "SELECT title, picture, description, content FROM contents";
+    $result = mysqli_prepare($connection, $query);
+    mysqli_stmt_execute($result);
+    mysqli_stmt_bind_result($result, $title, $picture, $description, $content);
+
+    while (mysqli_stmt_fetch($result)) {
+        $contents[] = array(
+            'title' => $title,
+            'picture' => $picture,
+            'description' => $description,
+            'content' => $content
+        );
+    }
+
+    mysqli_stmt_close($result);
+
+    mysqli_close($connection);
+
+    return $contents;
+}
+
 ?>
