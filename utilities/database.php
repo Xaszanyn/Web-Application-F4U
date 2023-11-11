@@ -61,6 +61,8 @@ function login_user($email, $password)
 
     mysqli_close($connection);
 
+    // create session for login with id and pass the session_id
+
     return $id;
 }
 
