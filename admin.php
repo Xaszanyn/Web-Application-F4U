@@ -16,6 +16,9 @@ switch ($request["action"]) {
     case "delete-content":
         echo json_encode(["status" => delete_content($request)]);
         break;
+    case "edit-content":
+        echo json_encode(["status" => edit_content($request)]);
+        break;
 
 }
 
