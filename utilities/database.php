@@ -141,4 +141,20 @@ function edit_content($content)
     return $result ? "success" : "error";
 }
 
+function create_content($content)
+{
+    $connection = connect();
+
+    $query = "INSERT INTO contents(title, picture, description, content) VALUES (?, ?, ?, ?)";
+    $result = mysqli_prepare($connection, $query);
+    $description = 'AUTOMATED_DESC_F';
+    $picture = "UNASSIGNED_P";
+    mysqli_stmt_bind_param($result, "ssss", $content["title"], $picture, $description, $content["content"]);
+    mysqli_stmt_execute($result);
+    mysqli_stmt_close($result);
+
+    mysqli_close($connection);
+
+    return $result ? "success" : "error";
+}
 ?>
