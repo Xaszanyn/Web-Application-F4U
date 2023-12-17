@@ -142,7 +142,3 @@ function edit_content($content)
 }
 
 ?>
-
-
-
-// mysqli_close($connection);
