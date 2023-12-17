@@ -133,7 +133,7 @@ function edit_content($content)
 {
     $connection = connect();
 
-    $query = "UPDATE contentes SET title = " . $content["title"] . ", picture = " . $content["picture"] . ", description = 'AUTOMATED_DESC_F', content = " . $content["content"] . " WHERE id = " . $content["id"];
+    $query = "UPDATE contentes SET title = '" . $content["title"] . "', picture = '" . $content["picture"] . "', description = 'AUTOMATED_DESC_F', content = '" . $content["content"] . "' WHERE id = " . $content["id"];
     $result = mysqli_query($connection, $query);
 
     mysqli_close($connection);
