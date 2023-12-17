@@ -14,7 +14,7 @@ if ($request["code"] != 139565)
 
 switch ($request["action"]) {
     case "delete-content":
-        echo json_encode(delete_content($request));
+        echo json_encode(["status" => delete_content($request)]);
         break;
 
 }
