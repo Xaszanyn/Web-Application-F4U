@@ -95,13 +95,14 @@ function get_contents()
 {
     $connection = connect();
 
-    $query = "SELECT title, picture, description, content FROM contents";
+    $query = "SELECT id, title, picture, description, content FROM contents";
     $result = mysqli_prepare($connection, $query);
     mysqli_stmt_execute($result);
-    mysqli_stmt_bind_result($result, $title, $picture, $description, $content);
+    mysqli_stmt_bind_result($result, $id, $title, $picture, $description, $content);
 
     while (mysqli_stmt_fetch($result)) {
         $contents[] = array(
+            'id' => $id,
             'title' => $title,
             'picture' => $picture,
             'description' => $description,
@@ -114,6 +115,18 @@ function get_contents()
     mysqli_close($connection);
 
     return $contents;
+}
+
+function delete_content($content)
+{
+    $connection = connect();
+
+    $query = "DELETE FROM contents WHERE id = " . $content["id"];
+    $result = mysqli_query($connection, $query);
+
+    mysqli_close($connection);
+
+    return $result ? "success" : "error";
 }
 
 ?>
