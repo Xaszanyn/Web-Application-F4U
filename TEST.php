@@ -3,7 +3,7 @@
 $publicKey = "9291d957-8df4-47b0-9ae5-b618da00ae29";
 
 
-$orderId = "1";
+$orderId = "2";
 $price = "5";
 $currency = "TRY";
 $productName = "Ürün İsmi";
