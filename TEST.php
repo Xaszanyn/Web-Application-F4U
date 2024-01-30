@@ -13,7 +13,7 @@ $buyerEmail = "email@example.com";
 $buyerAddress = "Örnek adres bilgisi";
 $secretKey = "7b4745d21d8e89ccbc5c7619f2e01cd6";
 
-$str = $orderId + $price + $currency + $productName + $buyerName + $buyerPhone + $buyerEmail + $buyerAddress + $secretKey;
+$str = $orderId . $price . $currency . $productName . $buyerName . $buyerPhone . $buyerEmail . $buyerAddress . $secretKey;
 
 $hashed = hash("sha512", $str);
 
