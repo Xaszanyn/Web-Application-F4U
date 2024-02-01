@@ -5,6 +5,12 @@ require "./utilities/database.php";
 
 $login = post();
 
-echo json_encode(["temp_id" => login_user($login["email"], $login["password"]), "status" => "success"]);
+$information = login_user($login["email"], $login["password"]);
+
+if (empty($information["email"])) {
+    echo json_encode(["status" => "user_invalid"]);
+} else {
+    echo json_encode(["information" => $information, "status" => "success"]);
+}
 
 ?>

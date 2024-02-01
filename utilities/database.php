@@ -51,19 +51,17 @@ function login_user($email, $password)
 {
     $connection = connect();
 
-    $query = "SELECT id FROM users WHERE email = ? AND hash = MD5(CONCAT(?, salt))";
+    $query = "SELECT email, name, phone, address, picture FROM users WHERE email = ? AND hash = MD5(CONCAT(?, salt))";
     $result = mysqli_prepare($connection, $query);
     mysqli_stmt_bind_param($result, "ss", $email, $password);
     mysqli_stmt_execute($result);
-    mysqli_stmt_bind_result($result, $id);
+    mysqli_stmt_bind_result($result, $email, $name, $phone, $address, $picture);
     mysqli_stmt_fetch($result);
     mysqli_stmt_close($result);
 
     mysqli_close($connection);
 
-    // create session for login with id and pass the session_id
-
-    return $id;
+    return ["email" => $email, "name" => $name, "phone" => $phone, "address" => $address, "picture" => $picture];
 }
 
 function get_menus()
