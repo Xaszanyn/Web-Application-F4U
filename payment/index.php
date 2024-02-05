@@ -2,8 +2,11 @@
 
 require "../utilities/post.php";
 
-$datas = post();
+$request = post();
 
-print_r($datas);
+$file = fopen("output.txt", "w");
+fwrite($file, implode(", ", array_keys($request)) . "\n");
+fwrite($file, implode(", ", $request));
+fclose($file);
 
 ?>
