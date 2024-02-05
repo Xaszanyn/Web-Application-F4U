@@ -1,6 +1,6 @@
 <?php
 
-require "./utilities/post.php";
+require "../utilities/post.php";
 
 $datas = post();
 
