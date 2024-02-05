@@ -3,11 +3,11 @@
 $publicKey = "9291d957-8df4-47b0-9ae5-b618da00ae29";
 
 
-$orderId = "2";
+$orderId = "1";
 $price = "1";
 $currency = "TRY";
 $productName = "Ürün İsmi";
-$buyerName = "Mehmet Yılmaz";
+$buyerName = "Ekin Aslan";
 $buyerPhone = "05555555555";
 $buyerEmail = "ekinaslant@gmail.com";
 $buyerAddress = "Örnek adres bilgisi";
