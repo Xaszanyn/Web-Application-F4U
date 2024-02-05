@@ -4,6 +4,6 @@ require "../utilities/post.php";
 
 $datas = post();
 
-echo $datas;
+print_r($datas);
 
 ?>
