@@ -4,12 +4,12 @@ $publicKey = "9291d957-8df4-47b0-9ae5-b618da00ae29";
 
 
 $orderId = "2";
-$price = "5";
+$price = "1";
 $currency = "TRY";
 $productName = "Ürün İsmi";
 $buyerName = "Mehmet Yılmaz";
 $buyerPhone = "05555555555";
-$buyerEmail = "email@example.com";
+$buyerEmail = "ekinaslant@gmail.com";
 $buyerAddress = "Örnek adres bilgisi";
 $secretKey = "7b4745d21d8e89ccbc5c7619f2e01cd6";
 
