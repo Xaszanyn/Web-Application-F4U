@@ -128,7 +128,7 @@ function calculate_price($id, $promotion, $days)
     $result = mysqli_prepare($connection, $query);
     mysqli_stmt_bind_param($result, "s", $id);
     mysqli_stmt_execute($result);
-    mysqli_stmt_bind_result($result, $price, $discount);
+    mysqli_stmt_bind_result($result, $original, $discount);
     mysqli_stmt_fetch($result);
     mysqli_stmt_close($result);
 
@@ -142,13 +142,13 @@ function calculate_price($id, $promotion, $days)
 
     mysqli_close($connection);
 
-    if (empty($price)) {
+    if (empty($original)) {
         return ["status" => "error"];
     }
 
-    $price = ceil(empty($promotion_discount) ? $price * ((100 - $discount) / 100) : $price * ((100 - ($discount + $promotion_discount)) / 100)) * $days;
+    $price = ceil(empty($promotion_discount) ? $original * ((100 - $discount) / 100) : $original * ((100 - ($discount + $promotion_discount)) / 100)) * $days;
 
-    return ["status" => "success", "price" => $price];
+    return ["status" => "success", "original" => $original, "price" => $price];
 
 }
 
