@@ -2,20 +2,13 @@
 
 require "./utilities/post.php";
 
+$payment = post(true);
+
 
 
 $file = fopen("OUTPUT.txt", "w");
-
-
-fwrite($file, implode(", ", array_keys($_POST)) . "\n");
-fwrite($file, implode(", ", $_POST));
-
-
-// $request = post();
-
-
-// fwrite($file, implode(", ", array_keys($request)) . "\n");
-// fwrite($file, implode(", ", $request));
+fwrite($file, implode(", ", array_keys($payment)) . "\n");
+fwrite($file, implode(", ", $payment));
 fclose($file);
 
 ?>

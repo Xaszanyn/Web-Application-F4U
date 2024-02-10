@@ -1,6 +1,6 @@
 <?php
 
-function post()
+function post($raw = false)
 {
     header("Access-Control-Allow-Origin: *");
     header("Access-Control-Allow-Headers: Content-Type");
@@ -9,7 +9,7 @@ function post()
     if ($_SERVER["REQUEST_METHOD"] != "POST")
         die("Hata");
 
-    return json_decode(file_get_contents("php://input"), true);
+    return $raw ? $_POST : json_decode(file_get_contents("php://input"), true);
 }
 
 ?>

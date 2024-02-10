@@ -70,17 +70,20 @@ function get_menus()
 {
     $connection = connect();
 
-    $query = "SELECT name, picture, description, content FROM menus";
+    $query = "SELECT id, name, picture, description, content, price, discount FROM menus";
     $result = mysqli_prepare($connection, $query);
     mysqli_stmt_execute($result);
-    mysqli_stmt_bind_result($result, $name, $picture, $description, $content);
+    mysqli_stmt_bind_result($result, $id, $name, $picture, $description, $content, $price, $discount);
 
     while (mysqli_stmt_fetch($result)) {
         $menus[] = array(
+            'id' => $id,
             'name' => $name,
             'picture' => $picture,
             'description' => $description,
-            'content' => $content
+            'content' => $content,
+            'price' => $price,
+            'discount' => $discount
         );
     }
 
@@ -134,7 +137,7 @@ function get_contents()
 // }
 
 // function order() {
-    
+
 // }
 
 function delete_content($content)
