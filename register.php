@@ -69,6 +69,7 @@ function create($code, $name, $phone, $address, $password)
     if ($code != $_SESSION["code"])
         return json_encode(["status" => "code_invalid"]);
 
+    session_destroy();
     register_user($name, $phone, $address, $password);
     return json_encode(["status" => "success"]);
 }

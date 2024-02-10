@@ -120,6 +120,38 @@ function get_contents()
     return $contents;
 }
 
+function calculate_price($id, $promotion, $days)
+{
+    $connection = connect();
+
+    $query = "SELECT price, discount FROM menus WHERE id = ?";
+    $result = mysqli_prepare($connection, $query);
+    mysqli_stmt_bind_param($result, "s", $id);
+    mysqli_stmt_execute($result);
+    mysqli_stmt_bind_result($result, $price, $discount);
+    mysqli_stmt_fetch($result);
+    mysqli_stmt_close($result);
+
+    $query = "SELECT discount FROM promotions WHERE code = ?";
+    $result = mysqli_prepare($connection, $query);
+    mysqli_stmt_bind_param($result, "s", $promotion);
+    mysqli_stmt_execute($result);
+    mysqli_stmt_bind_result($result, $promotion_discount);
+    mysqli_stmt_fetch($result);
+    mysqli_stmt_close($result);
+
+    mysqli_close($connection);
+
+    if (empty($price)) {
+        return ["status" => "error"];
+    }
+
+    $price = ceil(empty($promotion_discount) ? $price * ((100 - $discount) / 100) : $price * ((100 - ($discount + $promotion_discount)) / 100)) * $days;
+
+    return ["status" => "success", "price" => $price];
+
+}
+
 // function order_user()
 // {
 //     $connection = connect();
