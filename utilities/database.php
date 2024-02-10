@@ -148,7 +148,7 @@ function calculate_price($id, $promotion, $days)
 
     $price = ceil(empty($promotion_discount) ? $original * ((100 - $discount) / 100) : $original * ((100 - ($discount + $promotion_discount)) / 100)) * $days;
 
-    return ["status" => "success", "original" => $original, "price" => $price];
+    return ["status" => "success", "original" => $original * $days, "price" => $price];
 
 }
 
