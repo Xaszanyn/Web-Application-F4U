@@ -120,6 +120,40 @@ function get_contents()
     return $contents;
 }
 
+function get_locations()
+{
+    $connection = connect();
+
+    $query = "SELECT id, name FROM provinces";
+    $result = mysqli_prepare($connection, $query);
+    mysqli_stmt_execute($result);
+    mysqli_stmt_bind_result($result, $id, $name);
+    while (mysqli_stmt_fetch($result)) {
+        $provinces[] = array(
+            'id' => $id,
+            'name' => $name,
+        );
+    }
+    mysqli_stmt_close($result);
+
+    $query = "SELECT id, name, province_id FROM districts";
+    $result = mysqli_prepare($connection, $query);
+    mysqli_stmt_execute($result);
+    mysqli_stmt_bind_result($result, $id, $name, $province_id);
+    while (mysqli_stmt_fetch($result)) {
+        $districts[] = array(
+            'id' => $id,
+            'name' => $name,
+            'province_id' => $province_id
+        );
+    }
+    mysqli_stmt_close($result);
+
+    mysqli_close($connection);
+
+    return ['provinces' => $provinces, 'districts' => $districts];
+}
+
 function calculate_price($id, $promotion, $days)
 {
     $connection = connect();
