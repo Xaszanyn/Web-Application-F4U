@@ -154,6 +154,23 @@ function get_locations()
     return ['provinces' => $provinces, 'districts' => $districts];
 }
 
+function promotion_control($code)
+{
+    $connection = connect();
+
+    $query = "SELECT EXISTS(SELECT * FROM promotions WHERE code = ?)";
+    $result = mysqli_prepare($connection, $query);
+    mysqli_stmt_bind_param($result, "s", $code);
+    mysqli_stmt_execute($result);
+    mysqli_stmt_bind_result($result, $exists);
+    mysqli_stmt_fetch($result);
+    mysqli_stmt_close($result);
+
+    mysqli_close($connection);
+
+    return $exists;
+}
+
 function calculate_price($id, $promotion, $days)
 {
     $connection = connect();
