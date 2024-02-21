@@ -1,3 +1,5 @@
 <?php
 
-print_r($_POST);
+require "./utilities/post.php";
+
+header("Location: https://fitgelsin.com?payment=" . post()["paymesOrderId"]);
