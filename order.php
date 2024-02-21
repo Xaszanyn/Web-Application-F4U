@@ -11,7 +11,7 @@ $id = create_order_request($order["id"], $order["province"], $order["district"],
 if (!$id)
     echo json_encode(["status" => "error"]);
 else {
-    $price = calculate_price($order["id"], $order["promotion"], $order["days"]);
+    $price = calculate_price($order["id"], $order["promotion"], $order["days"])["price"];
     $menu_name = get_menu_name($order["id"]);
     $hash = base64_encode(hash("sha512", ($id . $price . "TRY" . $menu_name . $order["name"] . $order["phone"] . $order["email"] . $order["address"] . PAYMES_SECRET_KEY)));
 
