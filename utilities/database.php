@@ -210,13 +210,14 @@ function create_order_request($menu_id, $province_id, $district_id, $days, $time
 
     $connection = connect();
 
-    $query = "INSERT INTO order_requests(menu_id, date, province_id, district_id, days, time, promotion, name, phone, email, address, height, weight, allergy, disease, occupation, extra) VALUES (?, CURRENT_TIMESTAMP(), ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+    $query = "INSERT INTO order_requests(menu_id, date, province_id, district_id, days, time, promotion, name, phone, email, address, height, weight, allergy, disease, occupation, extra) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
     $result = mysqli_prepare($connection, $query);
+    $date = date('Y-m-d H:i:s');
     $allergy = empty($allergy) ? "-" : $allergy;
     $disease = empty($disease) ? "-" : $disease;
     $occupation = empty($occupation) ? "-" : $occupation;
     $extra = empty($extra) ? "-" : $extra;
-    mysqli_stmt_bind_param($result, "ssssssssssssssss", $menu_id, $province_id, $district_id, $days, $time, $promotion, $name, $phone, $email, $address, $height, $weight, $allergy, $disease, $occupation, $extra);
+    mysqli_stmt_bind_param($result, "sssssssssssssssss", $menu_id, $date, $province_id, $district_id, $days, $time, $promotion, $name, $phone, $email, $address, $height, $weight, $allergy, $disease, $occupation, $extra);
     mysqli_stmt_execute($result);
     $id = mysqli_insert_id($connection);
     mysqli_stmt_close($result);
