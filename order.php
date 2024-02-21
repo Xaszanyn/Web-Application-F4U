@@ -39,7 +39,7 @@ else {
     if (curl_errno($paymes))
         echo json_encode(["status" => "error"]);
     else
-        echo json_encode(["status" => "success", "result" => $result]);
+        echo json_encode(["status" => "success", "result" => json_decode($result, true)]);
 
     curl_close($paymes);
 }
