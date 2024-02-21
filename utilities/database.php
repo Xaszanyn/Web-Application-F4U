@@ -212,6 +212,7 @@ function create_order_request($menu_id, $province_id, $district_id, $days, $time
 
     $query = "INSERT INTO order_requests(menu_id, date, province_id, district_id, days, time, promotion, name, phone, email, address, height, weight, allergy, disease, occupation, extra) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
     $result = mysqli_prepare($connection, $query);
+    date_default_timezone_set("Europe/Istanbul");
     $date = date('Y-m-d H:i:s');
     $allergy = empty($allergy) ? "-" : $allergy;
     $disease = empty($disease) ? "-" : $disease;
