@@ -214,6 +214,7 @@ function create_order_request($menu_id, $province_id, $district_id, $days, $time
     $result = mysqli_prepare($connection, $query);
     date_default_timezone_set("Europe/Istanbul");
     $date = date('Y-m-d H:i:s');
+    $promotion = empty($promotion) ? "-" : $promotion;
     $allergy = empty($allergy) ? "-" : $allergy;
     $disease = empty($disease) ? "-" : $disease;
     $occupation = empty($occupation) ? "-" : $occupation;
