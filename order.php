@@ -2,7 +2,7 @@
 
 require "./utilities/post.php";
 require "./utilities/database.php";
-require "./utilities/configuration.php";
+require_once "./utilities/configuration.php";
 
 $order = post();
 
