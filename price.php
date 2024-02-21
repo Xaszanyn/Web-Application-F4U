@@ -9,5 +9,3 @@ if (empty($price["id"]))
     echo json_encode(["status" => "error"]);
 else
     echo json_encode(calculate_price($price["id"], $price["promotion"], $price["days"]));
-
-?>

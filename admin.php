@@ -19,4 +19,3 @@ switch ($request["action"]) {
         echo json_encode(["status" => create_content($request)]);
         break;
 }
-?>

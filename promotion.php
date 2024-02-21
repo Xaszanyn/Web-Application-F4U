@@ -7,5 +7,3 @@ if (promotion_control(post()["code"]))
     echo json_encode(["status" => "success"]);
 else
     echo json_encode(["status" => "error"]);
-
-?>

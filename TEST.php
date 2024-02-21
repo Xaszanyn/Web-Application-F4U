@@ -69,9 +69,3 @@ echo get_menu_name(1);
 
 // echo "<br><br><br>";
 // echo $result;
-
-
-
-
-
-?>

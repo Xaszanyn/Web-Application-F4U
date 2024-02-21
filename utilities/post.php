@@ -11,5 +11,3 @@ function post($raw = false)
 
     return $raw ? $_POST : json_decode(file_get_contents("php://input"), true);
 }
-
-?>

@@ -12,5 +12,3 @@ if (empty($information["email"])) {
 } else {
     echo json_encode(["information" => $information, "status" => "success"]);
 }
-
-?>

@@ -73,5 +73,3 @@ function create($code, $name, $phone, $address, $password)
     register_user($name, $phone, $address, $password);
     return json_encode(["status" => "success"]);
 }
-
-?>

@@ -244,25 +244,6 @@ function get_menu_name($id)
     return $name;
 }
 
-// function order_user()
-// {
-//     $connection = connect();
-
-//     $query = "INSERT INTO users(email, name, phone, address, picture, salt, hash) VALUES (?, ?, ?, ?, ?, ?, ?)";
-//     $result = mysqli_prepare($connection, $query);
-//     $picture = "-";
-//     $salt = bin2hex(random_bytes(16));
-//     $hash = md5($password . $salt);
-//     mysqli_stmt_bind_param($result, "sssssss", $_SESSION["email"], $name, $phone, $address, $picture, $salt, $hash);
-//     mysqli_stmt_execute($result);
-//     mysqli_stmt_close($result);
-
-//     mysqli_close($connection);
-// }
-
-// function order() {
-
-// }
 
 function delete_content($content)
 {
@@ -304,5 +285,3 @@ function create_content($content)
 
     return $result ? "success" : "error";
 }
-
-?>

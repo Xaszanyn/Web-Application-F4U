@@ -6,5 +6,3 @@ if ($_SERVER["REQUEST_METHOD"] != "GET")
     die("Hata");
 
 echo json_encode(get_locations());
-
-?>
