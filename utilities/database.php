@@ -203,6 +203,47 @@ function calculate_price($id, $promotion, $days)
 
 }
 
+function create_order_request($menu_id, $province_id, $district_id, $days, $time, $promotion, $name, $phone, $email, $address, $height, $weight, $allergy, $disease, $occupation, $extra)
+{
+    if (!in_array($days, [5, 10, 20, 60]))
+        return 0;
+
+    $connection = connect();
+
+    $query = "INSERT INTO order_requests(menu_id, date, province_id, district_id, days, time, promotion, name, phone, email, address, height, weight, allergy, disease, occupation, extra) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+    $result = mysqli_prepare($connection, $query);
+    $date = time();
+    $allergy = empty($allergy) ? "-" : $allergy;
+    $disease = empty($disease) ? "-" : $disease;
+    $occupation = empty($occupation) ? "-" : $occupation;
+    $extra = empty($extra) ? "-" : $extra;
+    mysqli_stmt_bind_param($result, "sisssssssssssssss", $menu_id, $date, $province_id, $district_id, $days, $time, $promotion, $name, $phone, $email, $address, $height, $weight, $allergy, $disease, $occupation, $extra);
+    mysqli_stmt_execute($result);
+    $id = mysqli_insert_id($connection);
+    mysqli_stmt_close($result);
+
+    mysqli_close($connection);
+
+    return $id;
+}
+
+function get_menu_name($id)
+{
+    $connection = connect();
+
+    $query = "SELECT name FROM menus WHERE id = ?";
+    $result = mysqli_prepare($connection, $query);
+    mysqli_stmt_bind_param($result, "s", $id);
+    mysqli_stmt_execute($result);
+    mysqli_stmt_bind_result($result, $name);
+    mysqli_stmt_fetch($result);
+    mysqli_stmt_close($result);
+
+    mysqli_close($connection);
+
+    return $name;
+}
+
 // function order_user()
 // {
 //     $connection = connect();

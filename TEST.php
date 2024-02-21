@@ -1,69 +1,74 @@
 <?php
 
-$publicKey = "9291d957-8df4-47b0-9ae5-b618da00ae29";
+require "./utilities/database.php";
+
+echo get_menu_name(1);
 
 
-$orderId = "1";
-$price = "1";
-$currency = "TRY";
-$productName = "Ürün İsmi";
-$buyerName = "Ekin Aslan";
-$buyerPhone = "05555555555";
-$buyerEmail = "ekinaslant@gmail.com";
-$buyerAddress = "Örnek adres bilgisi";
-$secretKey = "7b4745d21d8e89ccbc5c7619f2e01cd6";
-
-$str = $orderId . $price . $currency . $productName . $buyerName . $buyerPhone . $buyerEmail . $buyerAddress . $secretKey;
-
-$hashed = hash("sha512", $str);
-
-$encoded = base64_encode($hashed);
+// $publicKey = "9291d957-8df4-47b0-9ae5-b618da00ae29";
 
 
+// $orderId = "1";
+// $price = "1";
+// $currency = "TRY";
+// $productName = "Ürün İsmi";
+// $buyerName = "Ekin Aslan";
+// $buyerPhone = "05555555555";
+// $buyerEmail = "ekinaslant@gmail.com";
+// $buyerAddress = "Örnek adres bilgisi";
+// $secretKey = "7b4745d21d8e89ccbc5c7619f2e01cd6";
 
-echo $str . "<br>";
-echo $hashed . "<br>";
-echo $encoded . "<br>";
+// $str = $orderId . $price . $currency . $productName . $buyerName . $buyerPhone . $buyerEmail . $buyerAddress . $secretKey;
 
+// $hashed = hash("sha512", $str);
 
-echo "<br><br><br>";
-
-
-$url = 'https://api.paym.es/v4.6/order_create';
-
-
-$postData = array(
-    "publicKey" => $publicKey,
-    "orderId" => $orderId,
-    "price" => $price,
-    "currency" => $currency,
-    "productName" => $productName,
-    "buyerName" => $buyerName,
-    "buyerPhone" => $buyerPhone,
-    "buyerEmail" => $buyerEmail,
-    "buyerAddress" => $buyerAddress,
-    "hash" => $encoded,
-);
+// $encoded = base64_encode($hashed);
 
 
-$ch = curl_init($url);
-curl_setopt($ch, CURLOPT_POST, 1);
-curl_setopt($ch, CURLOPT_POSTFIELDS, $postData);
-curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+
+// echo $str . "<br>";
+// echo $hashed . "<br>";
+// echo $encoded . "<br>";
 
 
-$result = curl_exec($ch);
+// echo "<br><br><br>";
 
 
-if (curl_errno($ch)) {
-    echo 'Curl error: ' . curl_error($ch);
-}
+// $url = 'https://api.paym.es/v4.6/order_create';
 
 
-curl_close($ch);
+// $postData = array(
+//     "publicKey" => $publicKey,
+//     "orderId" => $orderId,
+//     "price" => $price,
+//     "currency" => $currency,
+//     "productName" => $productName,
+//     "buyerName" => $buyerName,
+//     "buyerPhone" => $buyerPhone,
+//     "buyerEmail" => $buyerEmail,
+//     "buyerAddress" => $buyerAddress,
+//     "hash" => $encoded,
+// );
 
-echo "<br><br><br>";
-echo $result;
+
+// $ch = curl_init($url);
+// curl_setopt($ch, CURLOPT_POST, 1);
+// curl_setopt($ch, CURLOPT_POSTFIELDS, $postData);
+// curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+
+
+// $result = curl_exec($ch);
+
+
+// if (curl_errno($ch)) {
+//     echo 'Curl error: ' . curl_error($ch);
+// }
+
+
+// curl_close($ch);
+
+// echo "<br><br><br>";
+// echo $result;
 
 
 
