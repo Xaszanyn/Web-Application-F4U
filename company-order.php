@@ -6,7 +6,7 @@ require_once "./utilities/configuration.php";
 
 $order = post();
 
-$id = create_order_request($order["id"], $order["province"], $order["district"], $order["days"], $order["time"], $order["promotion"], $order["name"], $order["phone"], $order["email"], $order["address"], $order["gender"], $order["height"], $order["weight"], $order["allergy"], $order["disease"], $order["occupation"], $order["extra"]);
+$id = "C" . create_company_order_request($order["id"], $order["province"], $order["district"], $order["days"], $order["time"], $order["promotion"], $order["name"], $order["phone"], $order["email"], $order["address"], $order["allergy"], $order["disease"], $order["extra"], $order["taxNumber"], $order["companyName"], $order["taxAdministration"], $order["taxMethod"], $order["companyAddress"]);
 
 if (!$id)
     echo json_encode(["status" => "error"]);

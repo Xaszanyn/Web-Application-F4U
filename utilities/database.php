@@ -9,7 +9,7 @@ function connect()
     mysqli_set_charset($connection, "UTF8");
 
     if (mysqli_connect_errno() > 0)
-        die("Hata");
+        die ("Hata");
 
     return $connection;
 }
@@ -61,7 +61,7 @@ function login_user($email, $password)
 
     mysqli_close($connection);
 
-    if (!empty($id)) {
+    if (!empty ($id)) {
         return ["email" => $email, "name" => $name, "phone" => $phone, "address" => $address, "picture" => $picture];
     }
 }
@@ -193,32 +193,57 @@ function calculate_price($id, $promotion, $days)
 
     mysqli_close($connection);
 
-    if (empty($original)) {
+    if (empty ($original)) {
         return ["status" => "error"];
     }
 
-    $price = ceil(empty($promotion_discount) ? $original * ((100 - $discount) / 100) : $original * ((100 - ($discount + $promotion_discount)) / 100)) * $days;
+    $price = ceil(empty ($promotion_discount) ? $original * ((100 - $discount) / 100) : $original * ((100 - ($discount + $promotion_discount)) / 100)) * $days;
 
     return ["status" => "success", "original" => $original * $days, "price" => $price];
 
 }
 
-function create_order_request($menu_id, $province_id, $district_id, $days, $time, $promotion, $name, $phone, $email, $address, $height, $weight, $allergy, $disease, $occupation, $extra)
+function create_order_request($menu_id, $province_id, $district_id, $days, $time, $promotion, $name, $phone, $email, $address, $gender, $height, $weight, $allergy, $disease, $occupation, $extra)
 {
     if (!in_array($days, [5, 10, 20, 60]))
         return 0;
 
     $connection = connect();
 
-    $query = "INSERT INTO order_requests(menu_id, date, province_id, district_id, days, time, promotion, name, phone, email, address, height, weight, allergy, disease, occupation, extra) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+    $query = "INSERT INTO order_requests(menu_id, date, province_id, district_id, days, time, promotion, name, phone, email, address, gender, height, weight, allergy, disease, occupation, extra) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
     $result = mysqli_prepare($connection, $query);
     date_default_timezone_set("Europe/Istanbul");
     $date = date('Y-m-d H:i:s');
-    $allergy = empty($allergy) ? "-" : $allergy;
-    $disease = empty($disease) ? "-" : $disease;
-    $occupation = empty($occupation) ? "-" : $occupation;
-    $extra = empty($extra) ? "-" : $extra;
-    mysqli_stmt_bind_param($result, "sssssssssssssssss", $menu_id, $date, $province_id, $district_id, $days, $time, $promotion, $name, $phone, $email, $address, $height, $weight, $allergy, $disease, $occupation, $extra);
+    $allergy = empty ($allergy) ? "-" : $allergy;
+    $disease = empty ($disease) ? "-" : $disease;
+    $occupation = empty ($occupation) ? "-" : $occupation;
+    $extra = empty ($extra) ? "-" : $extra;
+    mysqli_stmt_bind_param($result, "ssssssssssssssssss", $menu_id, $date, $province_id, $district_id, $days, $time, $promotion, $name, $phone, $email, $address, $gender, $height, $weight, $allergy, $disease, $occupation, $extra);
+    mysqli_stmt_execute($result);
+    $id = mysqli_insert_id($connection);
+    mysqli_stmt_close($result);
+
+    mysqli_close($connection);
+
+    return $id;
+}
+
+function create_company_order_request($menu_id, $province_id, $district_id, $days, $time, $promotion, $name, $phone, $email, $address, $allergy, $disease, $extra, $tax_number, $company_name, $tax_administration, $tax_method, $company_address)
+{
+    if (!in_array($days, [5, 10, 20, 60]))
+        return 0;
+
+    $connection = connect();
+
+    $query = "INSERT INTO company_order_requests(menu_id, date, province_id, district_id, days, time, promotion, name, phone, email, address, allergy, disease, extra, tax_number, tax_administration, tax_method, company_address) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+    $result = mysqli_prepare($connection, $query);
+    date_default_timezone_set("Europe/Istanbul");
+    $date = date('Y-m-d H:i:s');
+    $allergy = empty ($allergy) ? "-" : $allergy;
+    $disease = empty ($disease) ? "-" : $disease;
+    $occupation = empty ($occupation) ? "-" : $occupation;
+    $extra = empty ($extra) ? "-" : $extra;
+    mysqli_stmt_bind_param($result, "sssssssssssssssssss", $menu_id, $date, $province_id, $district_id, $days, $time, $promotion, $name, $phone, $email, $address, $allergy, $disease, $extra, $tax_number, $company_name, $tax_administration, $tax_method, $company_address);
     mysqli_stmt_execute($result);
     $id = mysqli_insert_id($connection);
     mysqli_stmt_close($result);
