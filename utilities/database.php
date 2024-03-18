@@ -235,7 +235,7 @@ function create_company_order_request($menu_id, $province_id, $district_id, $day
 
     $connection = connect();
 
-    $query = "INSERT INTO company_order_requests(menu_id, date, province_id, district_id, days, time, promotion, name, phone, email, address, allergy, disease, extra, tax_number, tax_administration, tax_method, company_address) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+    $query = "INSERT INTO company_order_requests(menu_id, date, province_id, district_id, days, time, promotion, name, phone, email, address, allergy, disease, extra, tax_number, company_name, tax_administration, tax_method, company_address) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
     $result = mysqli_prepare($connection, $query);
     date_default_timezone_set("Europe/Istanbul");
     $date = date('Y-m-d H:i:s');
