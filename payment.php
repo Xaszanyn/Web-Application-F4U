@@ -1,12 +1,10 @@
 <?php
 
 require "./utilities/post.php";
+require "./utilities/database.php";
 
-$payment = post(true);
+$request = post(true);
 
+$email = create_order($request);
 
-
-$file = fopen("OUTPUT.txt", "w");
-fwrite($file, implode(", ", array_keys($payment)) . "\n");
-fwrite($file, implode(", ", $payment));
-fclose($file);
+mail($email, "Fit4U", $request["paymesOrderId"] . " numaralı siparişinizin ödemesi başarıyla alınmıştır. İyi günler dileriz.");

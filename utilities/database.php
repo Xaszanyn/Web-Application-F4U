@@ -270,6 +270,41 @@ function get_menu_name($id)
     return $name;
 }
 
+function create_order($payment)
+{
+    $connection = connect();
+
+    $query = "INSERT INTO " . ($payment["orderId"][0] == "C" ? "company_orders" : "orders") . "(request_id, paymes_id, hash) VALUES (?, ?, ?)";
+    $result = mysqli_prepare($connection, $query);
+    mysqli_stmt_bind_param($result, "sss", $payment["orderId"], $payment["paymesOrderId"], $payment["hash"]);
+    mysqli_stmt_execute($result);
+    mysqli_stmt_close($result);
+
+    mysqli_close($connection);
+
+    return get_email($payment["orderId"][0]);
+}
+
+function get_email($id)
+{
+    $connection = connect();
+
+    $query = "SELECT email FROM " . ($id[0] == "C" ? "company_order_requests" : "order_requests") . " WHERE id = ?";
+    $result = mysqli_prepare($connection, $query);
+
+    if ($id[0] == "C")
+        $id = substr($id, 1);
+
+    mysqli_stmt_bind_param($result, "s", $id);
+    mysqli_stmt_execute($result);
+    mysqli_stmt_bind_result($result, $email);
+    mysqli_stmt_fetch($result);
+    mysqli_stmt_close($result);
+
+    mysqli_close($connection);
+
+    return $email;
+}
 
 function delete_content($content)
 {
