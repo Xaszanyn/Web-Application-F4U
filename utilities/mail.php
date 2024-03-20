@@ -14,4 +14,6 @@ function send_mail($target, $subject, $message, $name = "")
     ]);
 }
 
-send_mail("Doğrulama Kodu", "Üyelik için doğrulama kodunuz <b>21445</b>.", "Ekin Aslan");
+$mail = file_get_contents("./mail.html");
+
+echo $mail;
