@@ -4,10 +4,8 @@ function send_mail($target, $subject, $message, $name = "")
 {
     $mail = file_get_contents("./utilities/mail.html");
 
-    str_replace('${name}', empty ($name) ? "" : " " . $name, $mail);
-    str_replace('${message}', $message, $mail);
-
-    echo $mail;
+    $mail = str_replace('${name}', empty ($name) ? "" : " " . $name, $mail);
+    $mail = str_replace('${message}', $message, $mail);
 
     mail($target, $subject, $mail, [
         "From" => "Fit Gelsin <no-reply@fitgelsin.com>",
