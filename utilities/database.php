@@ -59,10 +59,52 @@ function login_user($email, $password)
     mysqli_stmt_fetch($result);
     mysqli_stmt_close($result);
 
+    $orders = ["individual" => [], "company" => []];
+
+    $query = "SELECT menu_id, date, province_id, district_id, days, time, address FROM orders, order_requests WHERE request_id = order_requests.id AND email = ?";
+    $result = mysqli_prepare($connection, $query);
+    mysqli_stmt_bind_param($result, "s", $email);
+    mysqli_stmt_execute($result);
+    mysqli_stmt_bind_result($result, $menu_id, $date, $province_id, $district_id, $days, $time, $order_address);
+    while (mysqli_stmt_fetch($result)) {
+        $orders["individual"][] = array(
+            'menu_id' => $menu_id,
+            'date' => $date,
+            'province_id' => $province_id,
+            'district_id' => $district_id,
+            'days' => $days,
+            'time' => $time,
+            'address' => $order_address
+        );
+    }
+    mysqli_stmt_close($result);
+
+    $query = "SELECT menu_id, date, province_id, district_id, days, time, address, allergy, disease, extra, company_name FROM company_orders, company_order_requests WHERE SUBSTRING(request_id, 2) = company_order_requests.id AND email = ?";
+    $result = mysqli_prepare($connection, $query);
+    mysqli_stmt_bind_param($result, "s", $email);
+    mysqli_stmt_execute($result);
+    mysqli_stmt_bind_result($result, $menu_id, $date, $province_id, $district_id, $days, $time, $order_address, $allergy, $disease, $extra, $company_name);
+    while (mysqli_stmt_fetch($result)) {
+        $orders["company"][] = array(
+            'menu_id' => $menu_id,
+            'date' => $date,
+            'province_id' => $province_id,
+            'district_id' => $district_id,
+            'days' => $days,
+            'time' => $time,
+            'address' => $order_address,
+            'allergy' => $allergy,
+            'disease' => $disease,
+            'extra' => $extra,
+            'company_name' => $company_name,
+        );
+    }
+    mysqli_stmt_close($result);
+
     mysqli_close($connection);
 
     if (!empty ($id)) {
-        return ["email" => $email, "name" => $name, "phone" => $phone, "address" => $address, "picture" => $picture];
+        return ["email" => $email, "name" => $name, "phone" => $phone, "address" => $address, "picture" => $picture, "orders" => $orders];
     }
 }
 
@@ -306,43 +348,43 @@ function get_email($id)
     return $email;
 }
 
-function delete_content($content)
-{
-    $connection = connect();
+// function delete_content($content)
+// {
+//     $connection = connect();
 
-    $query = "DELETE FROM contents WHERE id = " . $content["id"];
-    $result = mysqli_query($connection, $query);
+//     $query = "DELETE FROM contents WHERE id = " . $content["id"];
+//     $result = mysqli_query($connection, $query);
 
-    mysqli_close($connection);
+//     mysqli_close($connection);
 
-    return $result ? "success" : "error";
-}
+//     return $result ? "success" : "error";
+// }
 
-function edit_content($content)
-{
-    $connection = connect();
+// function edit_content($content)
+// {
+//     $connection = connect();
 
-    $query = "UPDATE contents SET title = '" . $content["title"] . "', picture = '" . $content["picture"] . "', description = 'AUTOMATED_DESC_F', content = '" . $content["content"] . "' WHERE id = " . $content["id"];
-    $result = mysqli_query($connection, $query);
+//     $query = "UPDATE contents SET title = '" . $content["title"] . "', picture = '" . $content["picture"] . "', description = 'AUTOMATED_DESC_F', content = '" . $content["content"] . "' WHERE id = " . $content["id"];
+//     $result = mysqli_query($connection, $query);
 
-    mysqli_close($connection);
+//     mysqli_close($connection);
 
-    return $result ? "success" : "error";
-}
+//     return $result ? "success" : "error";
+// }
 
-function create_content($content)
-{
-    $connection = connect();
+// function create_content($content)
+// {
+//     $connection = connect();
 
-    $query = "INSERT INTO contents(title, picture, description, content) VALUES (?, ?, ?, ?)";
-    $result = mysqli_prepare($connection, $query);
-    $description = 'AUTOMATED_DESC_F';
-    $picture = "UNASSIGNED_P";
-    mysqli_stmt_bind_param($result, "ssss", $content["title"], $picture, $description, $content["content"]);
-    mysqli_stmt_execute($result);
-    mysqli_stmt_close($result);
+//     $query = "INSERT INTO contents(title, picture, description, content) VALUES (?, ?, ?, ?)";
+//     $result = mysqli_prepare($connection, $query);
+//     $description = 'AUTOMATED_DESC_F';
+//     $picture = "UNASSIGNED_P";
+//     mysqli_stmt_bind_param($result, "ssss", $content["title"], $picture, $description, $content["content"]);
+//     mysqli_stmt_execute($result);
+//     mysqli_stmt_close($result);
 
-    mysqli_close($connection);
+//     mysqli_close($connection);
 
-    return $result ? "success" : "error";
-}
+//     return $result ? "success" : "error";
+// }
