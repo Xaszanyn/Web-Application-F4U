@@ -15,6 +15,3 @@ function send_mail($target, $subject, $message, $name = "")
         "Content-Type" => "text/html; charset=iso-8859-1"
     ]);
 }
-
-
-send_mail("e001010011100101110111@gmail.com", "TEST MAIL", "Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolorum earum obcaecati unde quas, quam ipsa debitis expedita sint distinctio illo?", "Ekin");
