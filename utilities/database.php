@@ -9,7 +9,7 @@ function connect()
     mysqli_set_charset($connection, "UTF8");
 
     if (mysqli_connect_errno() > 0)
-        die ("Hata");
+        die("Hata");
 
     return $connection;
 }
@@ -103,7 +103,7 @@ function login_user($email, $password)
 
     mysqli_close($connection);
 
-    if (!empty ($id)) {
+    if (!empty($id)) {
         return ["email" => $email, "name" => $name, "phone" => $phone, "address" => $address, "picture" => $picture, "orders" => $orders];
     }
 }
@@ -213,7 +213,7 @@ function promotion_control($code)
     return $exists;
 }
 
-function calculate_price($id, $promotion, $days)
+function calculate_price($id, $promotion, $days, $amount)
 {
     $connection = connect();
 
@@ -235,13 +235,13 @@ function calculate_price($id, $promotion, $days)
 
     mysqli_close($connection);
 
-    if (empty ($original)) {
+    if (empty($original)) {
         return ["status" => "error"];
     }
 
-    $price = ceil(empty ($promotion_discount) ? $original * ((100 - $discount) / 100) : $original * ((100 - ($discount + $promotion_discount)) / 100)) * $days;
+    $price = ceil(empty($promotion_discount) ? $original * ((100 - $discount) / 100) : $original * ((100 - ($discount + $promotion_discount)) / 100)) * $days * $amount;
 
-    return ["status" => "success", "original" => $original * $days, "price" => $price];
+    return ["status" => "success", "original" => $original * $days * $amount, "price" => $price];
 
 }
 
@@ -256,10 +256,10 @@ function create_order_request($menu_id, $province_id, $district_id, $days, $time
     $result = mysqli_prepare($connection, $query);
     date_default_timezone_set("Europe/Istanbul");
     $date = date('Y-m-d H:i:s');
-    $allergy = empty ($allergy) ? "-" : $allergy;
-    $disease = empty ($disease) ? "-" : $disease;
-    $occupation = empty ($occupation) ? "-" : $occupation;
-    $extra = empty ($extra) ? "-" : $extra;
+    $allergy = empty($allergy) ? "-" : $allergy;
+    $disease = empty($disease) ? "-" : $disease;
+    $occupation = empty($occupation) ? "-" : $occupation;
+    $extra = empty($extra) ? "-" : $extra;
     mysqli_stmt_bind_param($result, "ssssssssssssssssss", $menu_id, $date, $province_id, $district_id, $days, $time, $promotion, $name, $phone, $email, $address, $gender, $height, $weight, $allergy, $disease, $occupation, $extra);
     mysqli_stmt_execute($result);
     $id = mysqli_insert_id($connection);
@@ -281,10 +281,10 @@ function create_company_order_request($menu_id, $province_id, $district_id, $day
     $result = mysqli_prepare($connection, $query);
     date_default_timezone_set("Europe/Istanbul");
     $date = date('Y-m-d H:i:s');
-    $allergy = empty ($allergy) ? "-" : $allergy;
-    $disease = empty ($disease) ? "-" : $disease;
-    $occupation = empty ($occupation) ? "-" : $occupation;
-    $extra = empty ($extra) ? "-" : $extra;
+    $allergy = empty($allergy) ? "-" : $allergy;
+    $disease = empty($disease) ? "-" : $disease;
+    $occupation = empty($occupation) ? "-" : $occupation;
+    $extra = empty($extra) ? "-" : $extra;
     mysqli_stmt_bind_param($result, "sssssssssssssssssss", $menu_id, $date, $province_id, $district_id, $days, $time, $promotion, $name, $phone, $email, $address, $allergy, $disease, $extra, $tax_number, $company_name, $tax_administration, $tax_method, $company_address);
     mysqli_stmt_execute($result);
     $id = mysqli_insert_id($connection);
