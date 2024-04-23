@@ -245,14 +245,14 @@ function calculate_price($id, $promotion, $days, $amount)
 
 }
 
-function create_order_request($menu_id, $province_id, $district_id, $days, $time, $promotion, $name, $phone, $email, $address, $gender, $height, $weight, $allergy, $disease, $occupation, $extra)
+function create_order_request($menu_id, $province_id, $district_id, $days, $time, $promotion, $amount, $name, $phone, $email, $address, $gender, $height, $weight, $allergy, $disease, $occupation, $extra)
 {
     if (!in_array($days, [5, 10, 20, 60]))
         return 0;
 
     $connection = connect();
 
-    $query = "INSERT INTO order_requests(menu_id, date, province_id, district_id, days, time, promotion, name, phone, email, address, gender, height, weight, allergy, disease, occupation, extra) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+    $query = "INSERT INTO order_requests(menu_id, date, province_id, district_id, days, time, promotion, amount, name, phone, email, address, gender, height, weight, allergy, disease, occupation, extra) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
     $result = mysqli_prepare($connection, $query);
     date_default_timezone_set("Europe/Istanbul");
     $date = date('Y-m-d H:i:s');
@@ -260,7 +260,7 @@ function create_order_request($menu_id, $province_id, $district_id, $days, $time
     $disease = empty($disease) ? "-" : $disease;
     $occupation = empty($occupation) ? "-" : $occupation;
     $extra = empty($extra) ? "-" : $extra;
-    mysqli_stmt_bind_param($result, "ssssssssssssssssss", $menu_id, $date, $province_id, $district_id, $days, $time, $promotion, $name, $phone, $email, $address, $gender, $height, $weight, $allergy, $disease, $occupation, $extra);
+    mysqli_stmt_bind_param($result, "sssssssssssssssssss", $menu_id, $date, $province_id, $district_id, $days, $time, $promotion, $amount, $name, $phone, $email, $address, $gender, $height, $weight, $allergy, $disease, $occupation, $extra);
     mysqli_stmt_execute($result);
     $id = mysqli_insert_id($connection);
     mysqli_stmt_close($result);
@@ -270,14 +270,14 @@ function create_order_request($menu_id, $province_id, $district_id, $days, $time
     return $id;
 }
 
-function create_company_order_request($menu_id, $province_id, $district_id, $days, $time, $promotion, $name, $phone, $email, $address, $allergy, $disease, $extra, $tax_number, $company_name, $tax_administration, $tax_method, $company_address)
+function create_company_order_request($menu_id, $province_id, $district_id, $days, $time, $promotion, $amount, $name, $phone, $email, $address, $allergy, $disease, $extra, $tax_number, $company_name, $tax_administration, $tax_method, $company_address)
 {
     if (!in_array($days, [5, 10, 20, 60]))
         return 0;
 
     $connection = connect();
 
-    $query = "INSERT INTO company_order_requests(menu_id, date, province_id, district_id, days, time, promotion, name, phone, email, address, allergy, disease, extra, tax_number, company_name, tax_administration, tax_method, company_address) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+    $query = "INSERT INTO company_order_requests(menu_id, date, province_id, district_id, days, time, promotion, amount, name, phone, email, address, allergy, disease, extra, tax_number, company_name, tax_administration, tax_method, company_address) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
     $result = mysqli_prepare($connection, $query);
     date_default_timezone_set("Europe/Istanbul");
     $date = date('Y-m-d H:i:s');
@@ -285,7 +285,7 @@ function create_company_order_request($menu_id, $province_id, $district_id, $day
     $disease = empty($disease) ? "-" : $disease;
     $occupation = empty($occupation) ? "-" : $occupation;
     $extra = empty($extra) ? "-" : $extra;
-    mysqli_stmt_bind_param($result, "sssssssssssssssssss", $menu_id, $date, $province_id, $district_id, $days, $time, $promotion, $name, $phone, $email, $address, $allergy, $disease, $extra, $tax_number, $company_name, $tax_administration, $tax_method, $company_address);
+    mysqli_stmt_bind_param($result, "ssssssssssssssssssss", $menu_id, $date, $province_id, $district_id, $days, $time, $promotion, $amount, $name, $phone, $email, $address, $allergy, $disease, $extra, $tax_number, $company_name, $tax_administration, $tax_method, $company_address);
     mysqli_stmt_execute($result);
     $id = mysqli_insert_id($connection);
     mysqli_stmt_close($result);

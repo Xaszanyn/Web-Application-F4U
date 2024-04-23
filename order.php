@@ -6,12 +6,12 @@ require_once "./utilities/configuration.php";
 
 $order = post();
 
-$id = create_order_request($order["id"], $order["province"], $order["district"], $order["days"], $order["time"], $order["promotion"], $order["name"], $order["phone"], $order["email"], $order["address"], $order["gender"], $order["height"], $order["weight"], $order["allergy"], $order["disease"], $order["occupation"], $order["extra"]);
+$id = create_order_request($order["id"], $order["province"], $order["district"], $order["days"], $order["time"], $order["promotion"], $order["amount"], $order["name"], $order["phone"], $order["email"], $order["address"], $order["gender"], $order["height"], $order["weight"], $order["allergy"], $order["disease"], $order["occupation"], $order["extra"]);
 
 if (!$id)
     echo json_encode(["status" => "error"]);
 else {
-    $price = calculate_price($order["id"], $order["promotion"], $order["days"])["price"];
+    $price = calculate_price($order["id"], $order["promotion"], $order["days"], $order["amount"])["price"];
     $menu_name = get_menu_name($order["id"]);
     $hash = base64_encode(hash("sha512", ($id . $price . "TRY" . $menu_name . $order["name"] . $order["phone"] . $order["email"] . $order["address"] . PAYMES_SECRET_KEY)));
 
