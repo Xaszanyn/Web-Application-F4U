@@ -252,7 +252,7 @@ function create_order_request($menu_id, $province_id, $district_id, $days, $time
 
     $connection = connect();
 
-    $query = "INSERT INTO order_requests(menu_id, date, province_id, district_id, days, time, promotion, amount, name, phone, email, address, gender, height, weight, allergy, disease, occupation, extra) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+    $query = "INSERT INTO order_requests(menu_id, date, province_id, district_id, days, time, promotion, amount, name, phone, email, address, gender, height, weight, allergy, disease, occupation, extra) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
     $result = mysqli_prepare($connection, $query);
     date_default_timezone_set("Europe/Istanbul");
     $date = date('Y-m-d H:i:s');
@@ -277,7 +277,7 @@ function create_company_order_request($menu_id, $province_id, $district_id, $day
 
     $connection = connect();
 
-    $query = "INSERT INTO company_order_requests(menu_id, date, province_id, district_id, days, time, promotion, amount, name, phone, email, address, allergy, disease, extra, tax_number, company_name, tax_administration, tax_method, company_address) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+    $query = "INSERT INTO company_order_requests(menu_id, date, province_id, district_id, days, time, promotion, amount, name, phone, email, address, allergy, disease, extra, tax_number, company_name, tax_administration, tax_method, company_address) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
     $result = mysqli_prepare($connection, $query);
     date_default_timezone_set("Europe/Istanbul");
     $date = date('Y-m-d H:i:s');
