@@ -22,7 +22,7 @@ switch ($registry["phase"]) {
 
 function register($email)
 {
-    if (isset ($_SESSION["phase"]))
+    if (isset($_SESSION["phase"]))
         session_destroy();
 
     if (!filter_var($email, FILTER_VALIDATE_EMAIL))
@@ -35,13 +35,13 @@ function register($email)
     $_SESSION["email"] = $email;
     $_SESSION["code"] = mt_rand(10000, 99999);
     $_SESSION["attempt"] = 3;
-    send_mail($_SESSION["email"], "Doğrulama Kodu", "Üyelik için doğrulama kodunuz <b>" . $_SESSION["code"] . "</b>.");
+    send_mail_text($_SESSION["email"], "Doğrulama Kodu", "Üyelik için doğrulama kodunuz <b>" . $_SESSION["code"] . "</b>.");
     return json_encode(["status" => "success"]);
 }
 
 function confirm($code)
 {
-    if (!isset ($_SESSION["phase"]) || $_SESSION["phase"] != "register")
+    if (!isset($_SESSION["phase"]) || $_SESSION["phase"] != "register")
         return json_encode(["status" => "timeout"]);
 
     if (--$_SESSION["attempt"] < 0) {
@@ -60,7 +60,7 @@ function confirm($code)
 
 function create($code, $name, $phone, $address, $password)
 {
-    if (!isset ($_SESSION["phase"]) || $_SESSION["phase"] != "confirm")
+    if (!isset($_SESSION["phase"]) || $_SESSION["phase"] != "confirm")
         return json_encode(["status" => "timeout"]);
 
     if (--$_SESSION["attempt"] == 0) {
@@ -71,7 +71,7 @@ function create($code, $name, $phone, $address, $password)
     if ($code != $_SESSION["code"])
         return json_encode(["status" => "code_invalid"]);
 
-    send_mail($_SESSION["email"], "Üyelik", "Fit Gelsin'e hoşgeldiniz. Aramıza katıldığınız için çok mutluyuz. Artık rahatça menüler kısmından tam size göre bir paket seçebilirsiniz, dilerseniz de içeriklerimizi takip edebilirsiniz. Yepyeni menülerle görüşmek üzere...", $name);
+    send_mail_text($_SESSION["email"], "Üyelik", "Fit Gelsin'e hoşgeldiniz. Aramıza katıldığınız için çok mutluyuz. Artık rahatça menüler kısmından tam size göre bir paket seçebilirsiniz, dilerseniz de içeriklerimizi takip edebilirsiniz. Yepyeni menülerle görüşmek üzere...", $name);
     session_destroy();
     register_user($name, $phone, $address, $password);
 
