@@ -71,7 +71,7 @@ function create($code, $name, $phone, $address, $password)
     if ($code != $_SESSION["code"])
         return json_encode(["status" => "code_invalid"]);
 
-    send_mail_text($_SESSION["email"], "Üyelik", "Fit Gelsin'e hoşgeldiniz. Aramıza katıldığınız için çok mutluyuz. Artık rahatça menüler kısmından tam size göre bir paket seçebilirsiniz, dilerseniz de içeriklerimizi takip edebilirsiniz. Yepyeni menülerle görüşmek üzere...", $name);
+    send_mail_text($_SESSION["email"], "Üyelik", "Fit4U’ya hoş geldiniz. Aramıza katıldığınız için çok mutluyuz. Artık rahatça size en uygun menüyü seçip siparişinizi verebilirsiniz. Aklınıza takılan tüm sorular için site üzerindeki butondan diyetisyenlerimize ulaşabilirsiniz. Dilerseniz instagram üzerinden bizi takip ederek yeni menüler, çeşitli indirimler ve etkinliklerden haberdar olabilirsiniz. @fitgelsin Sağlıklı günler…", $name);
     session_destroy();
     register_user($name, $phone, $address, $password);
 
