@@ -239,7 +239,7 @@ function calculate_price($id, $promotion, $days, $amount)
         return ["status" => "error"];
     }
 
-    $price = empty($promotion_discount) ? $original * ((100 - $discount) / 100) : $original * ((100 - ($discount + $promotion_discount)) / 100) * $days * $amount;
+    $price = empty($promotion_discount) ? $original * ((100 - $discount) / 100) : $original * ((100 - ($discount + $promotion_discount)) / 100);
 
     switch ($days) {
         case 10:
@@ -253,7 +253,7 @@ function calculate_price($id, $promotion, $days, $amount)
             break;
     }
 
-    $price = ceil($price);
+    $price = ceil($price) * $days * $amount;
 
     return ["status" => "success", "original" => $original * $days * $amount, "price" => $price];
 
