@@ -249,7 +249,7 @@ function calculate_price($id, $promotion, $days, $amount)
             $price *= 0.92;
             break;
         case 60:
-            $price *= 0.86;
+            $price *= 0.866;
             break;
     }
 
