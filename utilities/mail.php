@@ -1,6 +1,6 @@
 <?php
 
-function send_mail($target, $subject, $message, $name = "")
+function send_mail_text($target, $subject, $message, $name = "")
 {
     $mail = file_get_contents("./utilities/mail.html");
 
@@ -14,7 +14,7 @@ function send_mail($target, $subject, $message, $name = "")
     ]);
 }
 
-function send_mail_text($target, $subject, $message, $name = "")
+function send_mail($target, $subject, $message, $name = "")
 {
     $message = ($name ? "Merhaba " . $name . ", " : $name) . $message;
 
