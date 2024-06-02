@@ -20,7 +20,7 @@ function send_announcement_mail($target, $subject, $message, $name = "")
 
 function send_order_mail($target, $subject, $message, $order)
 {
-    $mail = file_get_contents("./utilities/mails/order.html");
+    $mail = file_get_contents("./mails/order.html");
     $mail = str_replace('${name}', empty($order["name"]) ? "" : " " . $order["name"], $mail);
     $mail = str_replace('${message}', $message, $mail);
 
