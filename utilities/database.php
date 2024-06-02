@@ -338,14 +338,16 @@ function create_order($payment)
 
     mysqli_close($connection);
 
-    return get_email($payment["orderId"][0]);
+    return get_order($payment["orderId"][0]);
 }
 
-function get_email($id)
+function get_order($id)
 {
     $connection = connect();
 
-    $query = "SELECT email FROM " . ($id[0] == "C" ? "company_order_requests" : "order_requests") . " WHERE id = ?";
+    $table = ($id[0] == "C" ? "company_order_requests" : "order_requests");
+
+    $query = "SELECT menus.name, date, provinces.name, districts.name, days, time, promotion, amount, $table.name, phone, email, address, FROM $table INNER JOIN menus ON $table.menu_id = menus.id INNER JOIN provinces ON $table.province_id = provinces.id INNER JOIN districts ON $table.district_id = districts.id WHERE $table.id = ?";
     $result = mysqli_prepare($connection, $query);
 
     if ($id[0] == "C")
@@ -353,11 +355,24 @@ function get_email($id)
 
     mysqli_stmt_bind_param($result, "s", $id);
     mysqli_stmt_execute($result);
-    mysqli_stmt_bind_result($result, $email);
+    mysqli_stmt_bind_result($result, $menu_name, $date, $province, $district, $days, $time, $promotion, $amount, $name, $phone, $email, $address);
     mysqli_stmt_fetch($result);
     mysqli_stmt_close($result);
 
     mysqli_close($connection);
 
-    return $email;
+    return [
+        "menu_name" => $menu_name,
+        "date" => $date,
+        "province" => $province,
+        "district" => $district,
+        "days" => $days,
+        "time" => $time,
+        "promotion" => $promotion,
+        "amount" => $amount,
+        "name" => $name,
+        "phone" => $phone,
+        "email" => $email,
+        "address" => $address,
+    ];
 }

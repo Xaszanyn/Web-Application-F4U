@@ -6,7 +6,10 @@ require "./utilities/mail.php";
 
 $request = post(true);
 
-$email = create_order($request);
+$order = create_order($request);
 
-// send_mail($email);
-// $request["paymesOrderId"] . " numaralı siparişinizin ödemesi başarıyla alınmıştır. İyi günler dileriz."
+$send_order_mail($order["email"], "Fit Gelsin Sipariş", "Siparişiniz başarıyla alınmıştır, sipariş ile ilgili detaylı bilgileri aşağıdan görüntüleyebilirsiniz. Faturanız kayıtlı e-posta adresinize iletilecektir.", $order);
+
+// $send_order_mail("keynes09@hotmail.com", "Fit Gelsin Sipariş", "Yeni sipariş.", $order);
+
+$send_order_mail("ekinaslant@gmail.com", "Fit Gelsin Sipariş", "Yeni sipariş.", $order);

@@ -35,7 +35,7 @@ function register($email)
     $_SESSION["email"] = $email;
     $_SESSION["code"] = mt_rand(10000, 99999);
     $_SESSION["attempt"] = 3;
-    send_mail_text($_SESSION["email"], "Doğrulama Kodu", "Üyelik için doğrulama kodunuz <b>" . $_SESSION["code"] . "</b>.");
+    send_announcement_mail($_SESSION["email"], "Fit Gelsin Doğrulama Kodu", "Fit Gelsin üyeliği için doğrulama kodunuz: <b>" . $_SESSION["code"] . "</b>")
     return json_encode(["status" => "success"]);
 }
 
@@ -71,7 +71,7 @@ function create($code, $name, $phone, $address, $password)
     if ($code != $_SESSION["code"])
         return json_encode(["status" => "code_invalid"]);
 
-    send_mail_text($_SESSION["email"], "Üyelik", "Fit4U’ya hoş geldiniz. Aramıza katıldığınız için çok mutluyuz. Artık rahatça size en uygun menüyü seçip siparişinizi verebilirsiniz. Aklınıza takılan tüm sorular için site üzerindeki butondan diyetisyenlerimize ulaşabilirsiniz. Dilerseniz instagram üzerinden bizi takip ederek yeni menüler, çeşitli indirimler ve etkinliklerden haberdar olabilirsiniz. @fitgelsin Sağlıklı günler…", $name);
+    send_announcement_mail($_SESSION["email"], "Fit Gelsin Üyelik", "Fit Gelsin'e hoş geldiniz. Aramıza katıldığınız için çok mutluyuz. Artık rahatça size en uygun menüyü seçip siparişinizi verebilirsiniz. Aklınıza takılan tüm sorular için site üzerindeki butondan diyetisyenlerimize ulaşabilirsiniz. Dilerseniz instagram üzerinden bizi takip ederek yeni menüler, çeşitli indirimler ve etkinliklerden haberdar olabilirsiniz. Sağlıklı günler, @fit4ubox.", $name);
     session_destroy();
     register_user($name, $phone, $address, $password);
 

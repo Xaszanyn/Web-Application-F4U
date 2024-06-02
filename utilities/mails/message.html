@@ -24,22 +24,31 @@
         font-weight: 500;
       }
 
-      img {
+      #logo {
         display: block;
+        height: 100px;
         margin: 25px auto;
       }
 
       hr {
         width: calc(100% - 50px);
         border: 2px solid #3f5fcf;
+        margin-bottom: 25px;
       }
 
-      div {
+      main {
         padding: 0 25px;
         min-height: 300px;
       }
 
-      span {
+      main > p {
+        margin-bottom: 15px;
+      }
+
+      footer {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
         font-style: italic;
         font-size: 15px;
       }
@@ -52,17 +61,20 @@
   </head>
   <body>
     <a href="https://fitgelsin.com"
-      ><img src="https://fitgelsin.com/assets/images/temporary/logo.jpg" alt="Logo" style="height: 100px"
+      ><img id="logo" src="https://fitgelsin.com/assets/images/temporary/logo.jpg" alt="Logo"
     /></a>
     <hr />
-    <div>
+    <main>
       <p>Merhaba${name},</p>
       <p>${message}</p>
       <p>Sevgilerle, Fit Gelsin ekibi.</p>
-    </div>
-    <span>Her türlü destek için <a href="mailto:destek@fitgelsin.com">destek@fitgelsin.com</a></span>
-    <span>Fabbrica Gıda Limited Şirketi</span>
-    <span> Köprülü-Veysipaşa Mahallesi 1609. Sokak No:1 Efeler / Aydın </span>
-    <span>© Tüm Hakları Saklıdır</span>
+    </main>
+    <footer>
+      <span>Instagram hesabımız <a target="_blank" href="https://www.instagram.com/fit4ubox/">@fitgelsin</a></span>
+      <span>Her türlü destek için <a target="_blank" href="mailto:destek@fitgelsin.com">destek@fitgelsin.com</a></span>
+      <span>Fabbrica Gıda Limited Şirketi</span>
+      <span> Köprülü-Veysipaşa Mahallesi 1609. Sokak No:1 Efeler / Aydın </span>
+      <span>© Tüm Hakları Saklıdır</span>
+    </footer>
   </body>
 </html>
