@@ -8,8 +8,6 @@ $request = post(true);
 
 $order = create_order($request);
 
-$send_order_mail($order["email"], "Fit Gelsin Sipariş", "Siparişiniz başarıyla alınmıştır, sipariş ile ilgili detaylı bilgileri aşağıdan görüntüleyebilirsiniz. Faturanız kayıtlı e-posta adresinize iletilecektir.", $order);
+send_order_mail($order["email"], "Fit Gelsin Sipariş", "Siparişiniz başarıyla alınmıştır, sipariş ile ilgili detaylı bilgileri aşağıdan görüntüleyebilirsiniz. Faturanız kayıtlı e-posta adresinize iletilecektir.", $order);
 
-// $send_order_mail("keynes09@hotmail.com", "Fit Gelsin Sipariş", "Yeni sipariş.", $order);
-
-$send_order_mail("ekinaslant@gmail.com", "Fit Gelsin Sipariş", "Yeni sipariş.", $order);
+send_order_mail("ekinaslant@gmail.com", "Fit Gelsin Sipariş", "Yeni sipariş.", $order);
