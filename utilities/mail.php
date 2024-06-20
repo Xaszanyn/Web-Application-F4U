@@ -24,7 +24,7 @@ function send_order_mail($target, $subject, $message, $order)
     $mail = str_replace('${name}', empty($order["name"]) ? "" : " " . $order["name"], $mail);
     $mail = str_replace('${message}', $message, $mail);
 
-    $order = "<p>İsim:</p><p>{$order["name"]}</p><p>Telefon:</p><p>{$order["phone"]}</p><p>Menü:</p><p>{$order["menu_name"]}</p><p>Sipariş Tarihi:</p><p>{$order["date"]}</p><p>Gün Sayısı:</p><p>{$order["days"]}</p><p>Saat Aralığı:</p><p>{$order["time"]}</p><p>Adet:</p><p>{$order["amount"]}</p><p>İl:</p><p>{$order["province"]}</p><p>İlçe</p><p>{$order["district"]}</p><p>Adres:</p><p>{$order["address"]}</p>";
+    $order = "<p style='text-align: right; font-weight: bold;'>İsim:</p><p>{$order["name"]}</p><p style='text-align: right; font-weight: bold;'>Telefon:</p><p>{$order["phone"]}</p><p style='text-align: right; font-weight: bold;'>Menü:</p><p>{$order["menu_name"]}</p><p style='text-align: right; font-weight: bold;'>Sipariş Tarihi:</p><p>{$order["date"]}</p><p style='text-align: right; font-weight: bold;'>Gün Sayısı:</p><p>{$order["days"]}</p><p style='text-align: right; font-weight: bold;'>Saat Aralığı:</p><p>{$order["time"]}</p><p style='text-align: right; font-weight: bold;'>Adet:</p><p>{$order["amount"]}</p><p style='text-align: right; font-weight: bold;'>İl:</p><p>{$order["province"]}</p><p style='text-align: right; font-weight: bold;'>İlçe</p><p>{$order["district"]}</p><p style='text-align: right; font-weight: bold;'>Adres:</p><p>{$order["address"]}</p>";
     $mail = str_replace('${order}', $order, $mail);
 
     send_mail($target, $subject, $mail);
