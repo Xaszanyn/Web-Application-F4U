@@ -32,21 +32,20 @@
       <p style="margin: 0 0 15px">Merhaba${name},</p>
       <p style="margin: 0 0 15px">${message}</p>
       <p style="margin: 0 0 15px">Sevgilerle, Fit Gelsin ekibi.</p>
-      <p style="margin: 0 0 15px"><b>Sipariş Bilgileri:</b></p>
-      <div
-        class="grid"
-        style="
-          display: grid;
-          grid-template-columns: auto auto;
-          column-gap: 5px;
-          row-gap: 5px;
-          border: 2px solid;
-          padding: 5px;
-          max-width: 350px;
-          margin-bottom: 25px;
-        "
-      >
-        ${order}
+      <div style="max-width: 350px; margin: 0 auto 25px">
+        <p style="margin: 0 0 15px"><b>Sipariş Bilgileri:</b></p>
+        <div
+          style="
+            display: grid;
+            grid-template-columns: auto auto;
+            column-gap: 5px;
+            row-gap: 5px;
+            border: 2px solid;
+            padding: 5px;
+          "
+        >
+          ${order}
+        </div>
       </div>
     </main>
     <footer style="display: flex; flex-direction: column; align-items: center; font-style: italic; font-size: 15px">
