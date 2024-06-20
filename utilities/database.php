@@ -347,7 +347,7 @@ function get_order($id)
 
     $table = ($id[0] == "C" ? "company_order_requests" : "order_requests");
 
-    $query = "SELECT menus.name, date, provinces.name, districts.name, days, time, promotion, amount, $table.name, phone, email, address, FROM $table INNER JOIN menus ON $table.menu_id = menus.id INNER JOIN provinces ON $table.province_id = provinces.id INNER JOIN districts ON $table.district_id = districts.id WHERE $table.id = ?";
+    $query = "SELECT menus.name, date, provinces.name, districts.name, days, time, promotion, amount, $table.name, phone, email, address FROM $table INNER JOIN menus ON $table.menu_id = menus.id INNER JOIN provinces ON $table.province_id = provinces.id INNER JOIN districts ON $table.district_id = districts.id WHERE $table.id = ?";
     $result = mysqli_prepare($connection, $query);
 
     if ($id[0] == "C")
