@@ -338,7 +338,7 @@ function create_order($payment)
 
     mysqli_close($connection);
 
-    return get_order($payment["orderId"][0]);
+    return get_order($payment["orderId"]);
 }
 
 function get_order($id)
