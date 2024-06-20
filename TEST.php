@@ -1,6 +1,6 @@
 <?php
 
-require "../utilities/mail.php";
+require "./utilities/mail.php";
 
 
 send_announcement_mail("ekinduranov@gmail.com", "Fit Gelsin Doğrulama Kodu", "Fit Gelsin üyeliği için doğrulama kodunuz: <b>123456</b>");
