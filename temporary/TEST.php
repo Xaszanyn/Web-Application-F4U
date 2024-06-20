@@ -3,20 +3,7 @@
 require "../utilities/mail.php";
 
 
-send_order_mail("ekinduranov@gmail.com", "TEST F4U", "message", [
-    "menu_name" => "menu_name",
-    "date" => "date",
-    "province" => "province",
-    "district" => "district",
-    "days" => "days",
-    "time" => "time",
-    "promotion" => "promotion",
-    "amount" => "amount",
-    "name" => "name",
-    "phone" => "phone",
-    "email" => "email",
-    "address" => "address",
-]);
+send_announcement_mail("ekinduranov@gmail.com", "Fit Gelsin Doğrulama Kodu", "Fit Gelsin üyeliği için doğrulama kodunuz: <b>123456</b>");
 
 echo "TAMAM";
 
