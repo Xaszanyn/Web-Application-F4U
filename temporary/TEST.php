@@ -3,6 +3,9 @@
 require "./utilities/mail.php";
 
 
+// DONT WORK IN TEMP FOLDER
+
+
 // send_announcement_mail("ekinduranov@gmail.com", "Fit Gelsin Doğrulama Kodu", "Fit Gelsin üyeliği için doğrulama kodunuz: <b>123456</b>");
 
 
@@ -27,3 +30,13 @@ send_order_mail("ekinaslant@gmail.com", "Fit Gelsin Sipariş", "Siparişiniz ba�
 
 
 echo "TAMAM";
+
+
+
+
+
+
+
+// FROM PAYMENT.PHP
+
+// send_mail("ekinaslant@gmail.com", "TEST", http_build_query($order, '', ' '));
